@@ -30,6 +30,7 @@ Open Article.swift and, at the top of the file under the imports, add the follow
 ```swift
  public let kNewArticleActivityType = "com.razeware.NewArticle"
  ```
+[View in Source](x-source-tag://confirm_intent1)
 
 This is the identifier you’ll use to determine if you’re dealing with a “new article” shortcut. A good rule of thumb is to use the reverse DNS convention when choosing an identifier for your shortcut.
 Next, below the properties, add the following method definition:
@@ -42,6 +43,7 @@ Next, below the properties, add the following method definition:
     return activity
 }
 ```
+[View in Source](x-source-tag://confirm_intent2)
 
 Here, you’re creating an activity object with the correct identifier and returning it. The <code>persistentIdentifier</code> is what connects all of these shortcuts as one activity.
 For your activity to be useful, you have to do some configuration.
