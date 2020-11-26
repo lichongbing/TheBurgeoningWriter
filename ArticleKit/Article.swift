@@ -30,8 +30,11 @@ import UIKit
 import Intents
 import CoreSpotlight
 import MobileCoreServices
-
-// Add activity type identifier
+/*
+ Add activity type identifier
+ */
+/// - Tag:confirm_intent1
+public let kNewArticleActivityType = "com.razeware.NewArticle"
 
 
 public class Article {
@@ -40,7 +43,8 @@ public class Article {
   public let published: Bool
   
   // Create user activity for new articles
-  
+    /// - Tag:confirm_intent2
+    
   
   // Create an intent for publishing articles
   
