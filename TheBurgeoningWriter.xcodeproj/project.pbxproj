@@ -59,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		18C494F521B0A1AA00ACD57D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		43C5ABDA256F7C1F00E33E76 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AE2624DE2103B42F0020E6DD /* TheBurgeoningWriter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheBurgeoningWriter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE2624E12103B42F0020E6DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AE2624E32103B42F0020E6DD /* ArticleFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleFeedViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +129,7 @@
 				AE2624E82103B4300020E6DD /* Assets.xcassets */,
 				18C494F521B0A1AA00ACD57D /* LaunchScreen.storyboard */,
 				AE2624ED2103B4310020E6DD /* Info.plist */,
+				43C5ABDA256F7C1F00E33E76 /* README.md */,
 			);
 			path = TheBurgeoningWriter;
 			sourceTree = "<group>";
