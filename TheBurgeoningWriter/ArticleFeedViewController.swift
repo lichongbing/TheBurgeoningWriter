@@ -42,6 +42,14 @@ class ArticleFeedViewController: UIViewController {
     let vc = NewArticleViewController()
     
     // Create and donate an activity-based Shortcut
+    /// - Tag:confirm_intent3
+    //1
+    let activity = Article.newArticleShortcut(thumbnail: UIImage(named: "notePad"))
+    vc.userActivity = activity
+
+    //2
+    activity.becomeCurrent()
+
     
     navigationController?.pushViewController(vc, animated: true)
   }
@@ -79,4 +87,6 @@ extension ArticleFeedViewController: UITableViewDelegate {
     // Remove intent for article
     
   }
+ 
+
 }

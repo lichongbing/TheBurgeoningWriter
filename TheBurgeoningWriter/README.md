@@ -45,77 +45,94 @@ Next, below the properties, add the following method definition:
 ```
 [View in Source](x-source-tag://confirm_intent2)
 
-Here, you’re creating an activity object with the correct identifier and returning it. The <code>persistentIdentifier</code> is what connects all of these shortcuts as one activity.
+Here, you’re creating an activity object with the correct identifier and returning it. The persistentIdentifier is what connects all of these shortcuts as one activity.
 For your activity to be useful, you have to do some configuration.
-Add the following two lines before the <code>return</code>:
-<pre lang="swift" class="language-swift hljs">activity.isEligibleForSearch = <span class="hljs-literal">true
-activity.isEligibleForPrediction = <span class="hljs-literal">true
-<button class="o-button-copy"></button><button class="o-button-code o-button-code--light"></button></pre>
+Add the following two lines before the  return:
+```swift
+activity.isEligibleForSearch = true
+activity.isEligibleForPrediction = true
+```
+
+
 First, you set <code>isEligibleForSearch</code> to <code>true</code>. This allows users to search for this feature in Spotlight. You then set <code>isEligibleForPrediction</code> to <code>true</code> so prediction works. Setting this to <code>true</code> allows Siri to look at the activity and suggest it to your users in the future. It’s also what allows the activity to be turned into a Shortcut later.
 Next, you’ll set the properties that affect how your Shortcut looks to users.
 Define a local attributes property. Add it below the previously pasted lines:
- letattributes = <span class="hljs-type">CSSearchableItemAttributeSet(itemContentType: kUTTypeItem <span asclass="hljs-type">String)
-<button class="o-button-copy"></button><button class="o-button-code o-button-code--light"></button></pre>
+ ```swift
+ let attributes = CSSearchableItemAttributeSet(itemContentType: kUTTypeItem as String)
+
+ ```
+
 Set your attributes by adding the following lines:
-<pre lang="swift" class="language-swift hljs">activity.title = "Write a new article"
+```swift
+activity.title = "Write a new article"
 attributes.contentDescription = "Get those creative juices flowing!"
-attributes.thumbnailData = thumbnail?.jpegData(compressionQuality: <span class="hljs-number">1.0)
-<button class="o-button-copy"></button><button class="o-button-code o-button-code--light"></button></pre>
+attributes.thumbnailData = thumbnail?.jpegData(compressionQuality: 1.0)
+```
 This sets the title, subtitle and thumbnail image you’ll see on the suggestion notification.
 Stepping back for a moment, it’s important to remember that Siri exposes this feature in two separate ways: 
-<ul>
-<li>First, Siri learns to predict what your users might want to do in the form of suggestions that pop up in Notification Center and Spotlight Search.
-<li>Second,  your users can turn these activities into voice-based shortcuts.
-</ul>
+* First, Siri learns to predict what your users might want to do in the form of suggestions that pop up in Notification Center and Spotlight Search.
+* Second,  your users can turn these activities into voice-based shortcuts.
+
 For the last bit of configuration, add the suggested phrase users should consider when making a shortcut for this activity:
-<pre lang="swift" class="language-swift hljs">activity.suggestedInvocationPhrase = "Time to write!"
-<button class="o-button-copy"></button><button class="o-button-code o-button-code--light"></button></pre>
+```swift
+activity.suggestedInvocationPhrase = "Time to write!"
+```
+
 The chosen phrase should be something that’s short and easy to remember. It should also not include the phrase “Hey, Siri” because the user might have already triggered Siri’s interface that way.
 Finally, assign the attributes object to the activity object:
-<pre lang="swift" class="language-swift hljs">activity.contentAttributeSet = attributes
-<button class="o-button-copy"></button><button class="o-button-code o-button-code--light"></button></pre>
-Now that you can grab user activity objects from an <code>Article</code>, it’s time to use them.
-<h3 id="toc-anchor-004">Using the Activity Object</h3>
-Open ArticleFeedViewController.swift and locate <code>newArticleWasTapped()</code>.
+```swift
+activity.contentAttributeSet = attributes
+```
+Now that you can grab user activity objects from an *Article*, it’s time to use them.
+### Using the Activity Object
+Open ArticleFeedViewController.swift and locate *newArticleWasTapped()*.
 Below the comment, add the following lines:
- class="hljs-comment">//1
-<span letactivity = <span class="hljs-type">Article.newArticleShortcut(thumbnail: <span class="hljs-type">UIImage(named: "notePad"))
+```swift
+//1
+let activity = Article.newArticleShortcut(thumbnail: UIImage(named: "notePad"))
 vc.userActivity = activity
 
-<span class="hljs-comment">//2
+//2
 activity.becomeCurrent()
-<button class="o-button-copy"></button><button class="o-button-code o-button-code--light"></button></pre>
-
-<ol>
-<li>First, you create an activity object. Then, you attach it to the view controller that’ll be on screen.
-<li>Next, you call <code>becomeCurrent()</code> to officially become the “current” activity. This is the method that registers your activity with the system.
+```
+[View in Source](x-source-tag://confirm_intent3)
+* First, you create an activity object. Then, you attach it to the view controller that’ll be on screen.
+* Next, you call <code>becomeCurrent()</code> to officially become the “current” activity. This is the method that registers your activity with the system.
 
 Congratulations, you’re now successfully donating this activity to Siri.
 Build and run. Then, go to the new article screen and back to the home screen a few times. 
-<img src="https://koenig-media.raywenderlich.com/uploads/2018/08/NewBackAndForth.gif" alt="" width="254" height="454" class="aligncenter size-full bordered wp-image-200670">
+![https://koenig-media.raywenderlich.com/uploads/2018/08/NewBackAndForth.gif](https://koenig-media.raywenderlich.com/uploads/2018/08/NewBackAndForth.gif)
+
 You won’t see anything too interesting in the app, but each time you perform that action, you’re donating an activity to the system.
 To verify, pull down on the home screen to go to search. Then, type “write”, and you should see the “Write a new article” action come up.
-<img src="https://koenig-media.raywenderlich.com/uploads/2018/07/SearchForWriting.png" alt="" width="250" class="aligncenter size-full bordered wp-image-200408" srcset="https://koenig-media.raywenderlich.com/uploads/2018/07/SearchForWriting.png 1125w, https://koenig-media.raywenderlich.com/uploads/2018/07/SearchForWriting-148x320.png 148w, https://koenig-media.raywenderlich.com/uploads/2018/07/SearchForWriting-231x500.png 231w" sizes="(max-width: 1125px) 100vw, 1125px">
-<h3 id="toc-anchor-005">Continuing a User Activity</h3>
+![https://koenig-media.raywenderlich.com/uploads/2018/07/SearchForWriting.png](https://koenig-media.raywenderlich.com/uploads/2018/07/SearchForWriting.png)
+
+### Continuing a User Activity
 Tap on the “Write a new article” result in your search. You’ll be taken to your app’s home screen.
-<img src="https://koenig-media.raywenderlich.com/uploads/2018/08/basic-annoyed-1-510x510.png" alt="" width="300" class="aligncenter size-full wp-image-200690" srcset="https://koenig-media.raywenderlich.com/uploads/2018/08/basic-annoyed-1-510x510.png 510w, https://koenig-media.raywenderlich.com/uploads/2018/08/basic-annoyed-1-510x510-250x250.png 250w, https://koenig-media.raywenderlich.com/uploads/2018/08/basic-annoyed-1-510x510-320x320.png 320w, https://koenig-media.raywenderlich.com/uploads/2018/08/basic-annoyed-1-510x510-500x500.png 500w" sizes="(max-width: 510px) 100vw, 510px">
+![https://koenig-media.raywenderlich.com/uploads/2018/08/basic-annoyed-1-510x510.png](https://koenig-media.raywenderlich.com/uploads/2018/08/basic-annoyed-1-510x510.png)
+
 Your feature may be exposed to the system, but your app isn’t doing anything when the system tells it the user would like to use the feature.
 To react to this request, open AppDelegate.swift, and at the bottom of the class, add the following method definition:
- class="hljs-function">application<span class="hljs-params">(
-  <span class="hljs-number">_application: UIApplication,
-  <span continueuserActivity: NSUserActivity,
-  restorationHandler: @escaping <span class="hljs-params">([UIUserActivityRestoring]?)-&gt; <span class="hljs-type">Void
-) -&gt; <span class="hljs-type">Bool{
-  <span returnclass="hljs-literal">true
+ ```swift
+ func application(
+  _ application: UIApplication,
+  continue userActivity: NSUserActivity,
+  restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void
+) -> Bool {
+  return true
 }
-<button class="o-button-copy"></button><button class="o-button-code o-button-code--light"></button></pre>
+
+ ```
+ [View in Source](x-source-tag://confirm_intent4)
 Inside the method and before the <code>return</code> statement, create the New Article view controller and push it onto the nav stack:
- letvc = <span class="hljs-type">NewArticleViewController()
-nav?.pushViewController(vc, animated: <span class="hljs-literal">false)
-<button class="o-button-copy"></button><button class="o-button-code o-button-code--light"></button></pre>
+```swift
+let vc = NewArticleViewController()
+nav?.pushViewController(vc, animated: false)
+```
+
 Build and run again. When you search for this feature and tap on it, your app takes you directly to the New Article screen.
-<img src="https://koenig-media.raywenderlich.com/uploads/2018/08/SuccessfulShortcut.gif" alt="" width="250" class="aligncenter size-full bordered wp-image-200693">
-<h3 id="toc-anchor-006">Developer Settings for Working With Siri</h3>
+![https://koenig-media.raywenderlich.com/uploads/2018/08/SuccessfulShortcut.gif](https://koenig-media.raywenderlich.com/uploads/2018/08/SuccessfulShortcut.gif)
+### Developer Settings for Working With Siri
 All you’ve done so far is accessed your feature from Spotlight. This isn’t anything new, and it would work even if Siri weren’t involved since you made your activity eligible for search.
 To prove that Siri can start suggesting this action, you’ll need to go to the Settings app and enable a few options.
 Open Settings and find the Developer option. Scroll towards the bottom and you’ll see a section named SHORTCUTS TESTING.
@@ -197,15 +214,15 @@ Name it PostArticle, and then configure your intent based on these settings (des
 This screen is for configuring the information that the publish intent needs to work.
 The options in the Custom Intent section define what type of intent it is and can affect how Siri talks about the action. Telling Siri that this is a Post type action lets the system know that you’re sharing some bit of content somewhere:
 <ol>
-<li>
+
 Category: Post
-<li>
+
 Title: Post Article
-<li>
+
 Description: Post the last article
-<li>
+
 Default Image: Select one of the existing images in the project.
-<li>
+
 Confirmation: Check this box since you want to ask the user to verify that they’re really ready to publish this article.
 
 The Parameters section is where you define any dynamic properties used in the Title and Subtitle, which you’ll do now.

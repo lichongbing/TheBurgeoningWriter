@@ -61,6 +61,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     return false
   }
+  /// - Tag:confirm_intent4
+  func application(
+        _ application: UIApplication,
+        continue userActivity: NSUserActivity,
+        restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void
+      ) -> Bool {
+    let vc = NewArticleViewController()
+    nav?.pushViewController(vc, animated: false)
+        return true
+      }
   
   
 }
