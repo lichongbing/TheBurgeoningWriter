@@ -44,7 +44,14 @@ public class Article {
   
   // Create user activity for new articles
     /// - Tag:confirm_intent2
-    
+    public static func newArticleShortcut(thumbnail: UIImage?) -> NSUserActivity {
+      let activity = NSUserActivity(activityType: kNewArticleActivityType)
+      activity.persistentIdentifier =
+        NSUserActivityPersistentIdentifier(kNewArticleActivityType)
+
+      return activity
+    }
+
   
   // Create an intent for publishing articles
   
