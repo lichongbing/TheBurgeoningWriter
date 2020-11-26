@@ -48,6 +48,10 @@ public class Article {
       let activity = NSUserActivity(activityType: kNewArticleActivityType)
       activity.persistentIdentifier =
         NSUserActivityPersistentIdentifier(kNewArticleActivityType)
+        
+        activity.isEligibleForSearch = true
+        activity.isEligibleForPrediction = true
+
 
       return activity
     }
