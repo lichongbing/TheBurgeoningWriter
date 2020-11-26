@@ -51,6 +51,11 @@ public class Article {
         
         activity.isEligibleForSearch = true
         activity.isEligibleForPrediction = true
+        
+        let attributes = CSSearchableItemAttributeSet(itemContentType: kUTTypeItem as String)
+        activity.title = "Write a new article"
+        attributes.contentDescription = "Get those creative juices flowing!"
+        attributes.thumbnailData = thumbnail?.jpegData(compressionQuality: 1.0)
 
 
       return activity
