@@ -57,6 +57,8 @@ public class Article {
         attributes.contentDescription = "Get those creative juices flowing!"
         attributes.thumbnailData = thumbnail?.jpegData(compressionQuality: 1.0)
         activity.suggestedInvocationPhrase = "Time to write!"
+        activity.contentAttributeSet = attributes
+
 
 
 
